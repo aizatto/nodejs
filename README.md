@@ -22,3 +22,13 @@ In the repository you want to work in:
 
 http://eslint.org
 https://flow.org
+
+# To Use
+
+  import { setMath } = require('aizatto/lib/fn.js');
+
+# Misc
+
+If types are missing
+
+  yarn run flow-type install
