@@ -7,4 +7,4 @@ function setMath(a, b) {
 
 module.exports = {
   setMath,
-}
+};
