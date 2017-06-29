@@ -4,7 +4,7 @@ For my personal use, but could be useful for others to see how to do things.
 
 # Install
 
-    yarn add git+ssh://git@github.com:aizatto/nodejs.git
+    yarn add "https://github.com/aizatto/nodejs.git#master"
 
 # Develope against another repository
 
