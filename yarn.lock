@@ -1147,6 +1147,10 @@ eslint-config-airbnb@^15.0.1:
   dependencies:
     eslint-config-airbnb-base "^11.2.0"
 
+"eslint-config-aizatto@git+ssh://git@github.com:aizatto/eslint-config-aizatto.git#v0.0.1":
+  version "0.0.1"
+  resolved "git+ssh://git@github.com:aizatto/eslint-config-aizatto.git#2c7d337cedbd1af660c4588896485b5c4c21cfb2"
+
 eslint-import-resolver-node@^0.2.0:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.2.3.tgz#5add8106e8c928db2cba232bcd9efa846e3da16c"

@@ -13,10 +13,12 @@ export default class Tabs extends React.Component {
     defaultActiveKey: PropTypes.string,
     // eslint-disable-next-line react/forbid-prop-types
     children: PropTypes.array.isRequired,
+    onSelect: PropTypes.func,
   };
 
   static defaultProps = {
     defaultActiveKey: null,
+    onSelect: null,
   }
 
   constructor(props) {
@@ -33,35 +35,50 @@ export default class Tabs extends React.Component {
   }
 
   render() {
+    const {
+      defaultActiveKey,
+      onSelect,
+      ...props
+    } = this.props;
     const { activeKey } = this.state;
     let content = null;
 
     const children = _.flatten(this.props.children).map((child) => {
-      const { title, ...props } = { ...child.props };
+      const {
+        eventKey,
+        render: childRender,
+        title,
+        ...childProps
+      } = { ...child.props };
 
-      if (props.eventKey === activeKey) {
-        props.className = 'active {props.className}';
-        content = props.render();
+      if (eventKey === activeKey) {
+        childProps.className = 'active {childProps.className}';
+        content = childRender();
       }
 
-      const fn = props.onClick;
-      props.key = props.eventKey;
-      props.onClick = (e) => {
+      const fn = childProps.onClick;
+      childProps.key = eventKey;
+      childProps.onClick = (e) => {
         this.setState({
-          activeKey: props.eventKey,
+          activeKey: eventKey,
         }, () => {
           if (fn) {
             fn(e);
           }
+          if (onSelect) {
+            onSelect(eventKey);
+          }
         });
       };
 
-      return <li role="presentation" {...props}><a href={`#{props.eventKey}`}>{title}</a></li>;
+      return <li role="presentation" {...childProps}><a href={`#${eventKey}`}>{title}</a></li>;
     });
+
+    props.className = "nav nav-tabs {props.className}"
 
     return (
       <div>
-        <ul className="nav nav-tabs">
+        <ul {...props}>
           {children}
         </ul>
         {content}
