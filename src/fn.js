@@ -46,6 +46,8 @@ function setMath<T>(a: Set<T>, b: Set<T>) {
 }
 
 module.exports = {
+  getQueryString,
   getWindowHash,
+  setWindowHash,
   setMath,
 };
