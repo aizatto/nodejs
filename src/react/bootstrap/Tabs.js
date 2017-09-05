@@ -52,7 +52,7 @@ export default class Tabs extends React.Component {
       } = { ...child.props };
 
       if (eventKey === activeKey) {
-        childProps.className = 'active {childProps.className}';
+        childProps.className = `active ${childProps.className ? childProps.className : ''}`;
         content = childRender();
       }
 
@@ -74,7 +74,7 @@ export default class Tabs extends React.Component {
       return <li role="presentation" {...childProps}><a href={`#${eventKey}`}>{title}</a></li>;
     });
 
-    props.className = "nav nav-tabs {props.className}"
+    props.className = `nav nav-tabs ${props.className ? props.className : ''}`;
 
     return (
       <div>
