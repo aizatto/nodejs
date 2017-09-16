@@ -45,9 +45,27 @@ function setMath<T>(a: Set<T>, b: Set<T>) {
   };
 }
 
+function conjuction(sentences: Array<string>) {
+  const length = sentences.length;
+
+  let sentence = '';
+  for (let i = 0; i < length; i += 1) {
+    sentence += sentences[i];
+
+    if (i < length - 2) {
+      sentence += ', ';
+    } else if (i === length - 2) {
+      sentence += ', and ';
+    }
+  }
+
+  return sentence;
+}
+
 module.exports = {
   getQueryString,
   getWindowHash,
   setWindowHash,
   setMath,
+  conjuction,
 };

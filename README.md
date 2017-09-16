@@ -32,3 +32,11 @@ https://flow.org
 If types are missing
 
     yarn run flow-type install
+
+# Test
+
+Full test:
+
+```sh
+yarn run test
+```
