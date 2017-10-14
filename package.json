@@ -2,7 +2,7 @@
   "name": "aizatto",
   "description": "",
   "main": "index.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "build": "babel src/ -d lib/",
     "lint": "eslint .",
