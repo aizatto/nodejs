@@ -93,6 +93,13 @@ async function connectionFromKnex(args: Args, whereQuery: WhereQuery, countQuery
   };
 }
 
+function fieldsFromInfo(info: GraphQLResolveInfo) {
+  const fields = info.fieldNodes[0].selectionSet.selections.map(({ name: { value } }) => value);
+
+  return new Set(fields);
+}
+
 module.exports = {
   connectionFromKnex,
+  fieldsFromInfo,
 };
