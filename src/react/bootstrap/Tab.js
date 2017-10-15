@@ -8,5 +8,5 @@ export default function Tab(props) {
 Tab.propTypes = {
   title: PropTypes.node.isRequired,
   // eslint-disable-next-line react/no-unused-prop-types
-  render: PropTypes.func.isRequired,
+  render: PropTypes.func,
 };

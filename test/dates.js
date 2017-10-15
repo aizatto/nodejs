@@ -1,17 +1,16 @@
 const { expect } = require('chai');
 const { describe, it } = require('mocha');
 
-const { dayOfYear, _currentDaysOfYear } = require('../src/fn.js');
+const { dayOfYear, currentDaysOfYear } = require('../src/fn.js');
 
 describe('Date', () => {
   const test = (dates) => {
-    console.log(dates);
     Object.keys(dates).forEach((date) => {
       it(`${date}`, () => {
-        const daysOfYear = _currentDaysOfYear(new Date(date));
+        const daysOfYear = currentDaysOfYear(new Date(date));
         expect(daysOfYear).to.deep.equal(dates[date]);
       });
-    })
+    });
   };
 
   describe('leap year', () => {
@@ -30,7 +29,7 @@ describe('Date', () => {
       'Feb 28 2016': [59],
       'Feb 29 2016': [60],
       'Mar 1 2016': [61],
-    })
+    });
   });
 
   describe('non leap year', () => {
@@ -48,6 +47,6 @@ describe('Date', () => {
       'Jan 1 2016': [1],
       'Feb 28 2016': [59],
       'Mar 1 2017': [60, 61],
-    })
+    });
   });
 });

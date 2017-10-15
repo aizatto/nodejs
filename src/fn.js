@@ -70,13 +70,13 @@ const MARCH_1 = 61;
 
 function dayOfYear(date: Date): Number {
   const year = date.getFullYear();
-  const isLeapYear = year % 4 == 0;
+  const isLeapYear = year % 4 === 0;
 
   const startOfYear = new Date(date.toString());
   startOfYear.setFullYear(year, 0, 0);
   startOfYear.setHours(0);
 
-  const ms = date.getTime() - startOfYear.getTime()
+  const ms = date.getTime() - startOfYear.getTime();
   const days = Math.floor(ms / MS_IN_DAY);
 
   if (isLeapYear) {
@@ -88,12 +88,8 @@ function dayOfYear(date: Date): Number {
     : days;
 }
 
-function currentDaysOfYear(): Array<Number> {
-  return _currentDaysOfYear(new Date());
-}
-
-function _currentDaysOfYear(date: Date): Array<Number> {
-  const isLeapYear = date.getFullYear() % 4 == 0;
+function currentDaysOfYear(date: Date): Array<Number> {
+  const isLeapYear = date.getFullYear() % 4 === 0;
 
   const doy = dayOfYear(date);
 
@@ -103,18 +99,17 @@ function _currentDaysOfYear(date: Date): Array<Number> {
     ];
   } else if (doy <= FEBRUARY_28) {
     return [
-      doy
+      doy,
     ];
-  } else if (doy == MARCH_1) {
-    return[
+  } else if (doy === MARCH_1) {
+    return [
       FEBRUARY_29,
       MARCH_1,
     ];
-  } else {
-    return [
-      doy,
-    ];
   }
+  return [
+    doy,
+  ];
 }
 
 module.exports = {
@@ -125,5 +120,4 @@ module.exports = {
   conjuction,
   dayOfYear,
   currentDaysOfYear,
-  _currentDaysOfYear,
 };

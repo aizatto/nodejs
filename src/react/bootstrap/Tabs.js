@@ -46,32 +46,41 @@ export default class Tabs extends React.Component {
     const children = _.flatten(this.props.children).map((child) => {
       const {
         eventKey,
+        href,
         render: childRender,
         title,
         ...childProps
       } = { ...child.props };
 
-      if (eventKey === activeKey) {
-        childProps.className = `active ${childProps.className ? childProps.className : ''}`;
-        content = childRender();
+      let href2 = href;
+
+      childProps.key = eventKey;
+
+      if (!href) {
+        if (eventKey === activeKey) {
+          childProps.className = `active ${childProps.className ? childProps.className : ''}`;
+          content = childRender
+            ? childRender()
+            : null;
+        }
+
+        href2 = `#${eventKey}`;
+        const fn = childProps.onClick;
+        childProps.onClick = (e) => {
+          this.setState({
+            activeKey: eventKey,
+          }, () => {
+            if (fn) {
+              fn(e);
+            }
+            if (onSelect) {
+              onSelect(eventKey);
+            }
+          });
+        };
       }
 
-      const fn = childProps.onClick;
-      childProps.key = eventKey;
-      childProps.onClick = (e) => {
-        this.setState({
-          activeKey: eventKey,
-        }, () => {
-          if (fn) {
-            fn(e);
-          }
-          if (onSelect) {
-            onSelect(eventKey);
-          }
-        });
-      };
-
-      return <li role="presentation" {...childProps}><a href={`#${eventKey}`}>{title}</a></li>;
+      return <li role="presentation" {...childProps}><a href={href2}>{title}</a></li>;
     });
 
     props.className = `nav nav-tabs ${props.className ? props.className : ''}`;
