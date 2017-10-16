@@ -1,7 +1,9 @@
 // @flow
 const {
+  connectionFromArray,
   connectionFromArraySlice,
   cursorToOffset,
+  GraphQLResolveInfo,
 } = require('graphql-relay'); // eslint-disable-line import/no-extraneous-dependencies
 
 // TODO:
@@ -63,18 +65,53 @@ function connectionArgsToLimitAndOffset(args) {
   };
 }
 
-async function connectionFromKnex(args: Args, whereQuery: WhereQuery, countQuery: CountQuery) {
+function fieldsFromInfo(info: GraphQLResolveInfo) {
+  const fields = info.fieldNodes[0].selectionSet.selections.map(({ name: { value } }) => value);
+
+  return new Set(fields);
+}
+
+async function connectionFromKnex(
+  args: Args,
+  whereQuery: WhereQuery,
+  countQuery: CountQuery,
+  info: ?GraphQLResolveInfo,
+) {
   const { limit, offset } = connectionArgsToLimitAndOffset(args);
   const { column, direction } = argsToSortAndOrder(args);
+
+  whereQuery
+    .limit(limit)
+    .offset(offset)
+    .orderBy(column, direction);
+
+  let runCount = true;
+
+  if (info) {
+    const fields = fieldsFromInfo(info);
+    if (fields.has('totalCount')) {
+      if (fields.size === 1) {
+        const count = await countQuery;
+
+        return {
+          totalCount: count,
+        };
+      }
+    } else {
+      runCount = false;
+    }
+  }
+
+  if (!runCount) {
+    const rows = await whereQuery;
+    return connectionFromArray(rows, args);
+  }
 
   const [
     rows,
     [{ count }],
   ] = await Promise.all([
-    whereQuery
-      .limit(limit)
-      .offset(offset)
-      .orderBy(column, direction),
+    whereQuery,
     countQuery,
   ]);
 
@@ -91,12 +128,6 @@ async function connectionFromKnex(args: Args, whereQuery: WhereQuery, countQuery
     ...values,
     totalCount: count,
   };
-}
-
-function fieldsFromInfo(info: GraphQLResolveInfo) {
-  const fields = info.fieldNodes[0].selectionSet.selections.map(({ name: { value } }) => value);
-
-  return new Set(fields);
 }
 
 module.exports = {
