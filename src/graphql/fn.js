@@ -66,8 +66,17 @@ function connectionArgsToLimitAndOffset(args) {
 }
 
 function fieldsFromInfo(info: GraphQLResolveInfo) {
-  const fields = info.fieldNodes[0].selectionSet.selections.map(({ name: { value } }) => value);
+  if (!info ||
+      !info.fieldNodes ||
+      !Array.isArray(info.fieldNodes) ||
+      info.fieldNodes.length === 0) {
+    return new Set();
+  }
 
+  const fields = info
+    .fieldNodes[0]
+    .selectionSet
+    .selections.map(({ name: { value } }) => value);
   return new Set(fields);
 }
 
