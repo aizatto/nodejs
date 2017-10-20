@@ -65,6 +65,27 @@ function connectionArgsToLimitAndOffset(args) {
   };
 }
 
+function fieldsFromSelectionSet(info, selectionSet) {
+  let fields = new Set();
+
+  selectionSet
+    .selections.map((field) => {
+      const name = field.name.value;
+      switch (field.kind) {
+        case 'FragmentSpread':
+          let fields2 = fieldsFromSelectionSet(info, info.fragments[name].selectionSet);
+          fields = new Set([...fields, ...fields2]);
+          break;
+
+        case 'Field':
+          fields.add(name);
+          break;
+      }
+    });
+
+  return fields;
+}
+
 function fieldsFromInfo(info: GraphQLResolveInfo) {
   if (!info ||
       !info.fieldNodes ||
@@ -73,11 +94,12 @@ function fieldsFromInfo(info: GraphQLResolveInfo) {
     return new Set();
   }
 
-  const fields = info
-    .fieldNodes[0]
-    .selectionSet
-    .selections.map(({ name: { value } }) => value);
-  return new Set(fields);
+  return fieldsFromSelectionSet(
+    info,
+    info
+      .fieldNodes[0]
+      .selectionSet
+  );
 }
 
 async function connectionFromKnex(
