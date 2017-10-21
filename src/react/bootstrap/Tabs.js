@@ -7,6 +7,10 @@ import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import _ from 'lodash';
 
+import url from 'url';
+
+import { compareURL } from './../../fn';
+
 export default class Tabs extends React.Component {
 
   static propTypes = {
@@ -43,28 +47,43 @@ export default class Tabs extends React.Component {
     const { activeKey } = this.state;
     let content = null;
 
+    const currentUrl = window.location.toString();
+
     const children = _.flatten(this.props.children).map((child) => {
+      if (!child) {
+        return null;
+      }
+
       const {
         eventKey,
-        href,
+        href: hrefProp,
         render: childRender,
         title,
         ...childProps
       } = { ...child.props };
 
-      let href2 = href;
+      let href = hrefProp;
 
       childProps.key = eventKey;
 
-      if (!href) {
+      let className = childProps.className
+        ? childProps.className
+        : ''
+      delete childProps.className;
+
+      if (href) {
+        if (compareURL(currentUrl, href)) {
+          className = `active ${className}`;
+        };
+      } else {
         if (eventKey === activeKey) {
-          childProps.className = `active ${childProps.className ? childProps.className : ''}`;
+          className = `active ${className}`;
           content = childRender
             ? childRender()
             : null;
         }
 
-        href2 = `#${eventKey}`;
+        href = `#${eventKey}`;
         const fn = childProps.onClick;
         childProps.onClick = (e) => {
           this.setState({
@@ -80,7 +99,14 @@ export default class Tabs extends React.Component {
         };
       }
 
-      return <li role="presentation" {...childProps}><a href={href2}>{title}</a></li>;
+      return (
+        <li
+          role="presentation"
+          className={className}
+          {...childProps}>
+            <a href={href}>{title}</a>
+        </li>
+      );
     });
 
     props.className = `nav nav-tabs ${props.className ? props.className : ''}`;
