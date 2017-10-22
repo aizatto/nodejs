@@ -102,19 +102,33 @@ function fieldsFromInfo(info: GraphQLResolveInfo) {
   );
 }
 
-async function connectionFromKnex(
+function addArgsToQuery(
   args: Args,
-  whereQuery: WhereQuery,
-  countQuery: CountQuery,
-  info: ?GraphQLResolveInfo,
+  query: WhereQuery,
 ) {
   const { limit, offset } = connectionArgsToLimitAndOffset(args);
   const { column, direction } = argsToSortAndOrder(args);
 
-  whereQuery
-    .limit(limit)
+  if (limit) {
+    query
+      .limit(limit);
+  }
+
+  query
     .offset(offset)
     .orderBy(column, direction);
+
+  return query;
+};
+
+async function connectionFromKnex(
+  args: Args,
+  query: WhereQuery,
+  countQuery: CountQuery,
+  info: ?GraphQLResolveInfo,
+) {
+  const { offset } = connectionArgsToLimitAndOffset(args);
+  let whereQuery = addArgsToQuery(args, query);
 
   let runCount = true;
 
@@ -162,6 +176,8 @@ async function connectionFromKnex(
 }
 
 module.exports = {
+  addArgsToQuery,
+  connectionArgsToLimitAndOffset,
   connectionFromKnex,
   fieldsFromInfo,
 };
