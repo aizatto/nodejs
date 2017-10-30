@@ -40,3 +40,15 @@ Full test:
 ```sh
 yarn run test
 ```
+
+## Watch
+
+```sh
+yarn run watch:build
+```
+
+## Build for production
+
+```sh
+yarn run build
+```

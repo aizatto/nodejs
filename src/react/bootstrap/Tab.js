@@ -10,3 +10,7 @@ Tab.propTypes = {
   // eslint-disable-next-line react/no-unused-prop-types
   render: PropTypes.func,
 };
+
+Tab.defaultProps = {
+  className: '',
+};

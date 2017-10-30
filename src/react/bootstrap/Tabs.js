@@ -7,8 +7,6 @@ import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import _ from 'lodash';
 
-import url from 'url';
-
 import { compareURL } from './../../fn';
 
 export default class Tabs extends React.Component {
@@ -23,6 +21,7 @@ export default class Tabs extends React.Component {
   static defaultProps = {
     defaultActiveKey: null,
     onSelect: null,
+    className: '',
   }
 
   constructor(props) {
@@ -58,6 +57,7 @@ export default class Tabs extends React.Component {
         eventKey,
         href: hrefProp,
         render: childRender,
+        className,
         title,
         ...childProps
       } = { ...child.props };
@@ -65,19 +65,15 @@ export default class Tabs extends React.Component {
       let href = hrefProp;
 
       childProps.key = eventKey;
-
-      let className = childProps.className
-        ? childProps.className
-        : ''
-      delete childProps.className;
+      let aClassName = '';
 
       if (href) {
         if (compareURL(currentUrl, href)) {
-          className = `active ${className}`;
-        };
+          aClassName = 'active';
+        }
       } else {
         if (eventKey === activeKey) {
-          className = `active ${className}`;
+          aClassName = 'active';
           content = childRender
             ? childRender()
             : null;
@@ -102,14 +98,15 @@ export default class Tabs extends React.Component {
       return (
         <li
           role="presentation"
-          className={className}
-          {...childProps}>
-            <a href={href}>{title}</a>
+          className={`nav-item ${className}`}
+          {...childProps}
+        >
+          <a className={`nav-link ${aClassName}`} href={href}>{title}</a>
         </li>
       );
     });
 
-    props.className = `nav nav-tabs ${props.className ? props.className : ''}`;
+    props.className = `nav nav-tabs ${props.className}`;
 
     return (
       <div>

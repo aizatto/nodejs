@@ -160,7 +160,7 @@ function compareURL(stringA: string, stringB: string): Boolean {
     } else if (!aValue && bValue) {
       urlA[key] = bValue;
     }
-  })
+  });
 
   return url.format(urlA) === url.format(urlB);
 }

@@ -4,10 +4,10 @@
   "main": "index.js",
   "version": "0.0.7",
   "scripts": {
-    "watch": "yarn run eslint; yarn run build",
+    "watch:build": "yarn run watch 'yarn run lint; yarn run build' src",
     "build": "babel src/ -d lib/",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src",
     "test": "mocha --compilers js:babel-register"
   },
   "repository": {

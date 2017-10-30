@@ -69,16 +69,24 @@ function fieldsFromSelectionSet(info, selectionSet) {
   let fields = new Set();
 
   selectionSet
-    .selections.map((field) => {
+    .selections
+    .forEach((field) => {
       const name = field.name.value;
       switch (field.kind) {
-        case 'FragmentSpread':
-          let fields2 = fieldsFromSelectionSet(info, info.fragments[name].selectionSet);
+        case 'FragmentSpread': {
+          const fields2 = fieldsFromSelectionSet(
+            info,
+            info.fragments[name].selectionSet,
+          );
           fields = new Set([...fields, ...fields2]);
           break;
+        }
 
         case 'Field':
           fields.add(name);
+          break;
+
+        default:
           break;
       }
     });
@@ -98,7 +106,7 @@ function fieldsFromInfo(info: GraphQLResolveInfo) {
     info,
     info
       .fieldNodes[0]
-      .selectionSet
+      .selectionSet,
   );
 }
 
@@ -119,7 +127,7 @@ function addArgsToQuery(
     .orderBy(column, direction);
 
   return query;
-};
+}
 
 async function connectionFromKnex(
   args: Args,
@@ -128,7 +136,7 @@ async function connectionFromKnex(
   info: ?GraphQLResolveInfo,
 ) {
   const { offset } = connectionArgsToLimitAndOffset(args);
-  let whereQuery = addArgsToQuery(args, query);
+  const whereQuery = addArgsToQuery(args, query);
 
   let runCount = true;
 
