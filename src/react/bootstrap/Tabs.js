@@ -68,7 +68,8 @@ export default class Tabs extends React.Component {
       let aClassName = '';
 
       if (href) {
-        if (compareURL(currentUrl, href)) {
+        if (eventKey === activeKey ||
+            compareURL(currentUrl, href)) {
           aClassName = 'active';
         }
       } else {
