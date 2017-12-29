@@ -86,7 +86,8 @@ export default class Dropdown extends React.Component {
           key={index}
           onClick={onClick}
           className="dropdown-item"
-          href="#dropdown">{title}</a>
+          href="#dropdown"
+        >{title}</a>
       );
     });
 
