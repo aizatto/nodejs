@@ -104,12 +104,19 @@ function fieldsFromInfo(info: GraphQLResolveInfo) {
     return new Set();
   }
 
-  return fieldsFromSelectionSet(
-    info,
-    info
-      .fieldNodes[0]
-      .selectionSet,
-  );
+  let fields = new Set();
+
+  for (const fieldNode of info.fieldNodes) {
+    const newFields = fieldsFromSelectionSet(
+      info,
+      fieldNode
+        .selectionSet,
+    );
+
+    fields = new Set([...fields, ...newFields]);
+  }
+
+  return fields;
 }
 
 function addArgsToQuery(
@@ -146,7 +153,7 @@ async function connectionFromKnex(
     const fields = fieldsFromInfo(info);
     if (fields.has('totalCount')) {
       if (fields.size === 1) {
-        const [ { count }] = await countQuery;
+        const [{ count }] = await countQuery;
 
         return {
           totalCount: count,
