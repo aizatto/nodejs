@@ -147,26 +147,16 @@ async function connectionFromKnex(
   const { offset } = connectionArgsToLimitAndOffset(args);
   const whereQuery = addArgsToQuery(args, query);
 
-  let runCount = true;
-
   if (info) {
     const fields = fieldsFromInfo(info);
-    if (fields.has('totalCount')) {
-      if (fields.size === 1) {
-        const [{ count }] = await countQuery;
+    if (fields.size === 1 &&
+        fields.has('totalCount')) {
+      const [{ count }] = await countQuery;
 
-        return {
-          totalCount: count,
-        };
-      }
-    } else {
-      runCount = false;
+      return {
+        totalCount: count,
+      };
     }
-  }
-
-  if (!runCount) {
-    const rows = await whereQuery;
-    return connectionFromArray(rows, args);
   }
 
   const [
