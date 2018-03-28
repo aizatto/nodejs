@@ -1,10 +1,6 @@
 // @flow
 
-const { GraphQLInt, GraphQLNonNull, GraphQLString } = require('graphql');
-
 const {
-  connectionArgs: connectionArgsBase,
-  connectionDefinitions: connectionDefinitionsBase,
   connectionFromArray,
   connectionFromArraySlice,
   cursorToOffset,
@@ -38,16 +34,6 @@ const argsToSortAndOrder = (args: Args) => {
   const column = args.sort ? args.sort : 'id';
 
   return { column, direction };
-};
-
-const connectionArgs = {
-  order: {
-    type: GraphQLString,
-  },
-  sort: {
-    type: GraphQLString,
-  },
-  ...connectionArgsBase,
 };
 
 function connectionArgsToLimitAndOffset(args) {
@@ -145,16 +131,6 @@ function addArgsToQuery(
   return query;
 }
 
-function connectionDefinitions(config) {
-  // eslint-disable-next-line
-  config.connectionFields = {
-    totalCount: {
-      type: new GraphQLNonNull(GraphQLInt),
-    },
-  };
-  return connectionDefinitionsBase(config);
-}
-
 async function connectionFromKnex(
   args: Args,
   query: WhereQuery,
@@ -170,7 +146,7 @@ async function connectionFromKnex(
     const fields = fieldsFromInfo(info);
     if (fields.has('totalCount')) {
       if (fields.size === 1) {
-        const count = await countQuery;
+        const [ { count }] = await countQuery;
 
         return {
           totalCount: count,
@@ -211,9 +187,7 @@ async function connectionFromKnex(
 
 module.exports = {
   addArgsToQuery,
-  connectionArgs,
   connectionArgsToLimitAndOffset,
-  connectionDefinitions,
   connectionFromKnex,
   fieldsFromInfo,
 };
