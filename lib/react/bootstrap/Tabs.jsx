@@ -12,17 +12,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -32,14 +21,12 @@ var __rest = (this && this.__rest) || function (s, e) {
             t[p[i]] = s[p[i]];
     return t;
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 // eslint-disable-next-line import/no-extraneous-dependencies
-var react_1 = require("react");
-// eslint-disable-next-line import/no-extraneous-dependencies
-var prop_types_1 = require("prop-types");
+var React = require("react");
 // eslint-disable-next-line import/no-extraneous-dependencies
 var lodash_1 = require("lodash");
-var fn_1 = require("./../../fn");
+var fn_1 = require("../../fn");
 var Tabs = /** @class */ (function (_super) {
     __extends(Tabs, _super);
     function Tabs(props) {
@@ -50,7 +37,7 @@ var Tabs = /** @class */ (function (_super) {
             activeKey = props.children[0].props.eventKey;
         }
         _this.state = {
-            activeKey: activeKey
+            activeKey: activeKey,
         };
         return _this;
     }
@@ -60,11 +47,11 @@ var Tabs = /** @class */ (function (_super) {
         var activeKey = this.state.activeKey;
         var content = null;
         var currentUrl = window.location.toString();
-        var children = lodash_1["default"].flatten(this.props.children).map(function (child) {
+        var children = lodash_1.default.flatten(this.props.children).map(function (child) {
             if (!child) {
                 return null;
             }
-            var _a = __assign({}, child.props), eventKey = _a.eventKey, hrefProp = _a.href, childRender = _a.render, className = _a.className, title = _a.title, childProps = __rest(_a, ["eventKey", "href", "render", "className", "title"]);
+            var _a = child.props, eventKey = _a.eventKey, hrefProp = _a.href, childRender = _a.render, className = _a.className, title = _a.title, childProps = __rest(_a, ["eventKey", "href", "render", "className", "title"]);
             var href = hrefProp;
             childProps.key = eventKey;
             var aClassName = '';
@@ -85,7 +72,7 @@ var Tabs = /** @class */ (function (_super) {
                 var fn_2 = childProps.onClick;
                 childProps.onClick = function (e) {
                     _this.setState({
-                        activeKey: eventKey
+                        activeKey: eventKey,
                     }, function () {
                         if (fn_2) {
                             fn_2(e);
@@ -100,25 +87,20 @@ var Tabs = /** @class */ (function (_super) {
           <a className={"nav-link " + aClassName} href={href}>{title}</a>
         </li>);
         });
-        props.className = "nav nav-tabs " + props.className;
+        var className = "nav nav-tabs " + props.className;
         return (<div>
-        <ul {...props}>
+        <ul {...props} className={className}>
           {children}
         </ul>
         {content}
       </div>);
     };
-    Tabs.propTypes = {
-        defaultActiveKey: prop_types_1["default"].string,
-        // eslint-disable-next-line react/forbid-prop-types
-        children: prop_types_1["default"].array.isRequired,
-        onSelect: prop_types_1["default"].func
-    };
     Tabs.defaultProps = {
         defaultActiveKey: null,
         onSelect: null,
-        className: ''
+        className: '',
     };
     return Tabs;
-}(react_1["default"].Component));
-exports["default"] = Tabs;
+}(React.Component));
+exports.default = Tabs;
+//# sourceMappingURL=Tabs.jsx.map

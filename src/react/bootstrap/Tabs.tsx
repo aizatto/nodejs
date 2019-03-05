@@ -1,22 +1,26 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import React from 'react';
-
-// eslint-disable-next-line import/no-extraneous-dependencies
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import _ from 'lodash';
 
-import { compareURL } from './../../fn';
+import { compareURL } from '../../fn';
 
-export default class Tabs extends React.Component {
+declare const window;
 
-  static propTypes = {
-    defaultActiveKey: PropTypes.string,
-    // eslint-disable-next-line react/forbid-prop-types
-    children: PropTypes.array.isRequired,
-    onSelect: PropTypes.func,
-  };
+interface Props {
+  className: string,
+  // eslint-disable-next-line react/forbid-prop-types
+  children: [];
+  defaultActiveKey: string;
+  onSelect(eventKey:string): void;
+}
+
+interface State {
+  activeKey: string;
+}
+
+export default class Tabs extends React.Component<Props, State> {
 
   static defaultProps = {
     defaultActiveKey: null,
@@ -60,7 +64,7 @@ export default class Tabs extends React.Component {
         className,
         title,
         ...childProps
-      } = { ...child.props };
+      } = child.props;
 
       let href = hrefProp;
 
@@ -107,11 +111,11 @@ export default class Tabs extends React.Component {
       );
     });
 
-    props.className = `nav nav-tabs ${props.className}`;
+    const className = `nav nav-tabs ${props.className}`;
 
     return (
       <div>
-        <ul {...props}>
+        <ul {...props} className={className}>
           {children}
         </ul>
         {content}

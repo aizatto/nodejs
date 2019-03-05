@@ -1,10 +1,9 @@
-// @flow
+// eslint-disable-next-line import/no-extraneous-dependencies, no-unused-vars
+import { GraphQLResolveInfo } from 'graphql';
 
 const {
-  connectionFromArray,
   connectionFromArraySlice,
   cursorToOffset,
-  GraphQLResolveInfo,
 } = require('graphql-relay'); // eslint-disable-line import/no-extraneous-dependencies
 
 
@@ -12,21 +11,18 @@ const {
 // Use the actual type
 // https://github.com/graphql/graphql-relay-js/blob/9ebb57685065470d1955d6cc3144acc2b070e8fb/src/connection/connectiontypes.js#L45
 type Args = {
-  first: ?number;
-  after: ?string;
-  last: ?number;
-  before: ?string;
-  order: ?string;
-  sort: ?string;
+  first?: number;
+  after?: string;
+  last?: number;
+  before?: string;
+  order?: string;
+  sort?: string;
 }
 
-type WhereQuery = {
-  limit: (?number) => WhereQuery;
-  offset: (?number) => WhereQuery;
-  orderBy: (?string, ?string) => Array<any>; // TODO: this is not accurate
-}
-
-type CountQuery = {
+interface WhereQuery {
+  limit(number?:number): WhereQuery;
+  offset(number?:number): WhereQuery;
+  orderBy(order?:string, sort?:string):  Array<any>; // TODO: this is not accurate
 }
 
 const argsToSortAndOrder = (args: Args) => {
@@ -106,6 +102,7 @@ function fieldsFromInfo(info: GraphQLResolveInfo) {
 
   let fields = new Set();
 
+  // eslint-disable-next-line no-restricted-syntax
   for (const fieldNode of info.fieldNodes) {
     const newFields = fieldsFromSelectionSet(
       info,
@@ -141,8 +138,8 @@ function addArgsToQuery(
 async function connectionFromKnex(
   args: Args,
   query: WhereQuery,
-  countQuery: CountQuery,
-  info: ?GraphQLResolveInfo,
+  countQuery: Promise<any>,
+  info?: GraphQLResolveInfo,
 ) {
   const { offset } = connectionArgsToLimitAndOffset(args);
   const whereQuery = addArgsToQuery(args, query);

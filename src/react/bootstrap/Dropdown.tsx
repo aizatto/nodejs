@@ -1,8 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import React from 'react';
-
-// eslint-disable-next-line import/no-extraneous-dependencies
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
 import classnames from 'classnames';
 
@@ -11,14 +8,17 @@ const State = {
   CLOSED: 'closed',
 };
 
-export default class Dropdown extends React.Component {
+interface Props {
+  className: string,
+  title: string,
+  children: any[],
+}
 
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    // eslint-disable-next-line react/forbid-prop-types
-    children: PropTypes.array,
-    className: PropTypes.string,
-  };
+interface ComponentState {
+  open: string;
+}
+
+export default class Dropdown extends React.Component<Props, ComponentState> {
 
   static defaultProps = {
     children: [],
@@ -40,7 +40,7 @@ export default class Dropdown extends React.Component {
       },
     ]);
 
-    const title = this.props.title;
+    const { title } = this.props;
 
     return (
       <div className={className}>
@@ -83,11 +83,14 @@ export default class Dropdown extends React.Component {
 
       return (
         <a
+          // eslint-disable-next-line react/no-array-index-key
           key={index}
           onClick={onClick}
           className="dropdown-item"
           href="#dropdown"
-        >{title}</a>
+        >
+          {title}
+        </a>
       );
     });
 
@@ -106,11 +109,11 @@ export default class Dropdown extends React.Component {
   }
 
   toggleState() {
-    this.setState({
-      open: this.state.open === State.OPENED
+    this.setState((prevState) => ({
+      open: prevState.open === State.OPENED
         ? State.CLOSED
         : State.OPENED,
-    });
+    }));
   }
 
 }

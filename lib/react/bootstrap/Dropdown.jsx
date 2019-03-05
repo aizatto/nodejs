@@ -12,36 +12,34 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 // eslint-disable-next-line import/no-extraneous-dependencies
-var react_1 = require("react");
-// eslint-disable-next-line import/no-extraneous-dependencies
-var prop_types_1 = require("prop-types");
+var React = require("react");
 var classnames_1 = require("classnames");
 var State = {
     OPENED: 'opened',
-    CLOSED: 'closed'
+    CLOSED: 'closed',
 };
 var Dropdown = /** @class */ (function (_super) {
     __extends(Dropdown, _super);
     function Dropdown(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
-            open: State.CLOSED
+            open: State.CLOSED,
         };
         return _this;
     }
     Dropdown.prototype.render = function () {
         var _this = this;
-        var className = classnames_1["default"]([
+        var className = classnames_1.default([
             'dropdown',
             {
-                show: this.state.open === State.OPENED
+                show: this.state.open === State.OPENED,
             },
         ]);
         var title = this.props.title;
         return (<div className={className}>
-        <button className={classnames_1["default"]('btn', 'btn-secondary', 'dropdown-toggle', this.props.className)} onClick={function () { return _this.toggleState(); }} type="button" aria-haspopup="true" aria-expanded={this.state.open === State.OPENED}>
+        <button className={classnames_1.default('btn', 'btn-secondary', 'dropdown-toggle', this.props.className)} onClick={function () { return _this.toggleState(); }} type="button" aria-haspopup="true" aria-expanded={this.state.open === State.OPENED}>
           {title}
         </button>
         {this.renderChildren()}
@@ -54,19 +52,23 @@ var Dropdown = /** @class */ (function (_super) {
             var onClick = function (e) {
                 e.preventDefault();
                 _this.setState({
-                    open: State.CLOSED
+                    open: State.CLOSED,
                 }, function () {
                     if (onClickProp) {
                         onClickProp(e);
                     }
                 });
             };
-            return (<a key={index} onClick={onClick} className="dropdown-item" href="#dropdown">{title}</a>);
+            return (<a 
+            // eslint-disable-next-line react/no-array-index-key
+            key={index} onClick={onClick} className="dropdown-item" href="#dropdown">
+          {title}
+        </a>);
         });
-        var className = classnames_1["default"]([
+        var className = classnames_1.default([
             'dropdown-menu',
             {
-                show: this.state.open === State.OPENED
+                show: this.state.open === State.OPENED,
             },
         ]);
         return (<div className={className}>
@@ -74,22 +76,17 @@ var Dropdown = /** @class */ (function (_super) {
       </div>);
     };
     Dropdown.prototype.toggleState = function () {
-        this.setState({
-            open: this.state.open === State.OPENED
+        this.setState(function (prevState) { return ({
+            open: prevState.open === State.OPENED
                 ? State.CLOSED
-                : State.OPENED
-        });
-    };
-    Dropdown.propTypes = {
-        title: prop_types_1["default"].string.isRequired,
-        // eslint-disable-next-line react/forbid-prop-types
-        children: prop_types_1["default"].array,
-        className: prop_types_1["default"].string
+                : State.OPENED,
+        }); });
     };
     Dropdown.defaultProps = {
         children: [],
-        className: ''
+        className: '',
     };
     return Dropdown;
-}(react_1["default"].Component));
-exports["default"] = Dropdown;
+}(React.Component));
+exports.default = Dropdown;
+//# sourceMappingURL=Dropdown.jsx.map

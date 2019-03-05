@@ -1,7 +1,21 @@
 module.exports = {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   extends: [
     "airbnb",
     "aizatto",
-  ]
+    "prettier",
+    "prettier/@typescript-eslint"
+  ],
+  "plugins": ["@typescript-eslint"],
+  rules: {
+    "react/destructuring-assignment": [0],
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
 };

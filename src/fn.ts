@@ -1,9 +1,9 @@
-// @flow
+declare const window;
 
 const querystring = require('querystring');
 const url = require('url');
 
-function getQueryString() {
+export function getQueryString() {
   // eslint-disable-next-line no-undef
   return querystring.parse(window.location.search.substr(1));
 }
@@ -13,7 +13,7 @@ function getQueryString() {
  *
  *   const key = getWindowHash(new Set(Object.keys(tabFns)));
  */
-function getWindowHash(keys: Set<string>) {
+export function getWindowHash(keys: Set<string>) {
   // eslint-disable-next-line no-undef
   let key = window.location.hash.substr(1);
   if (!keys.has(key)) {
@@ -32,22 +32,22 @@ function getWindowHash(keys: Set<string>) {
  *     );
  *   };
  */
-function setWindowHash(key) {
+export function setWindowHash(key) {
   return () => {
     // eslint-disable-next-line no-undef
     window.location.hash = key;
   };
 }
 
-function setMath<T>(a: Set<T>, b: Set<T>) {
+export function setMath<T>(a: Set<T>, b: Set<T>) {
   return {
     remove: [...a].filter(x => !b.has(x)),
     add: [...b].filter(x => !a.has(x)),
   };
 }
 
-function conjuction(sentences: Array<string>) {
-  const length = sentences.length;
+export function conjuction(sentences: Array<string>) {
+  const { length } = sentences;
 
   let sentence = '';
   for (let i = 0; i < length; i += 1) {
@@ -69,7 +69,7 @@ const FEBRUARY_28 = 59;
 const FEBRUARY_29 = 60;
 const MARCH_1 = 61;
 
-function dayOfYear(date: Date): Number {
+export function dayOfYear(date: Date): Number {
   const year = date.getFullYear();
   const isLeapYear = year % 4 === 0;
 
@@ -89,7 +89,7 @@ function dayOfYear(date: Date): Number {
     : days;
 }
 
-function currentDaysOfYear(date: Date): Array<Number> {
+export function currentDaysOfYear(date: Date): Array<Number> {
   const isLeapYear = date.getFullYear() % 4 === 0;
 
   const doy = dayOfYear(date);
@@ -98,6 +98,7 @@ function currentDaysOfYear(date: Date): Array<Number> {
     return [
       doy,
     ];
+  // eslint-disable-next-line no-else-return
   } else if (doy <= FEBRUARY_28) {
     return [
       doy,
@@ -132,7 +133,7 @@ function getDefaultPort(protocol) {
  *
  * TODO: replace this logic, it is really basic
  */
-function compareURL(stringA: string, stringB: string): Boolean {
+export function compareURL(stringA: string, stringB: string): Boolean {
   const urlA = url.parse(stringA);
   const urlB = url.parse(stringB);
   new Set([
@@ -164,14 +165,3 @@ function compareURL(stringA: string, stringB: string): Boolean {
 
   return url.format(urlA) === url.format(urlB);
 }
-
-module.exports = {
-  getQueryString,
-  getWindowHash,
-  setWindowHash,
-  setMath,
-  conjuction,
-  dayOfYear,
-  currentDaysOfYear,
-  compareURL,
-};
