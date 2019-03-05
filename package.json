@@ -7,7 +7,7 @@
     "watch:build": "yarn run watch 'yarn run lint; yarn run build' src",
     "build": "tsc",
     "lint": "eslint --ext ts,tsx src",
-    "lint:fix": "eslint --fix --ext ts,tsx src",
+    "lint:fix": "eslint --fix --ext ts,tsx src test",
     "test": "mocha --compilers js:babel-register"
   },
   "repository": {
@@ -24,7 +24,9 @@
     "lib": "./src"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
     "@types/graphql": "^14.0.7",
+    "@types/mocha": "^5.2.6",
     "@types/node": "^11.10.4",
     "@types/react": "^16.8.6",
     "@types/react-dom": "^16.8.2",
@@ -40,6 +42,7 @@
     "eslint-plugin-react": "^7.12.4",
     "mocha": "^3.4.2",
     "prettier": "^1.16.4",
+    "ts-node": "^8.0.2",
     "typescript": "^3.3.3333",
     "watch": "^1.0.2"
   },
@@ -51,6 +54,7 @@
     "react": "16.4.2"
   },
   "dependencies": {
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "path-to-regexp": "^3.0.0"
   }
 }

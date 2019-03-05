@@ -55,3 +55,11 @@ yarn run watch:build
 ```sh
 yarn run build
 ```
+
+# TypeScript
+
+Test Mocha
+
+```sh
+mocha -r ts-node/register test/client.ts
+```
