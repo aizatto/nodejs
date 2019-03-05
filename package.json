@@ -2,7 +2,7 @@
   "name": "aizatto",
   "description": "",
   "main": "index.js",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "scripts": {
     "watch:build": "yarn run watch 'yarn run lint; yarn run build' src",
     "build": "tsc",
