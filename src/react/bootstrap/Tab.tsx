@@ -1,13 +1,15 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+import * as React from 'react';
 
 interface Props {
-  className: string,
+  eventKey: string,
+  className?: string,
   title: string,
   render(): void,
 }
 
 export default function Tab(props: Props) {
-  return props.title;
+  return <>{props.title}</>;
 }
 
 Tab.defaultProps = {

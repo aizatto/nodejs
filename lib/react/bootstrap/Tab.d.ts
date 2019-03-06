@@ -1,9 +1,11 @@
+/// <reference types="react" />
 interface Props {
-    className: string;
+    eventKey: string;
+    className?: string;
     title: string;
     render(): void;
 }
-export default function Tab(props: Props): string;
+export default function Tab(props: Props): JSX.Element;
 export default namespace Tab {
     var defaultProps: {
         className: string;

@@ -20,7 +20,8 @@ export function getValueFromPath(
   routes:Routes,
   routeToValue:RouteToValueConfig,
 ) {
-  for (const key in routes) {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const key of Object.keys(routes)) {
     const route = routes[key];
 
     if (!routeToValue[key]) {
@@ -48,7 +49,7 @@ export function getValueAndParamsFromPath(
   routes:Routes,
   routeToValue:RouteToValueConfig,
 ) {
-  let {
+  const {
     keys,
     match,
     value,
@@ -57,13 +58,13 @@ export function getValueAndParamsFromPath(
   // TODO decide on wether I should read from querystring
   const params = {};
 
-  for (let i = 1; i < match.length; i++) {
+  for (let i = 1; i < match.length; i += 1) {
     const key = keys[i - 1];
     const prop = key.name;
-    const value = match[i];
+    const matchValue = match[i];
 
     if (value !== undefined) {
-      params[prop] = value;
+      params[prop] = matchValue;
     }
   }
 

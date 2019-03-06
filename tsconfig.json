@@ -9,6 +9,7 @@
     ],
     "declaration": true,
     "declarationMap": true,
+    "strictFunctionTypes": true,
     "jsx": "react"
   },
   "include": [

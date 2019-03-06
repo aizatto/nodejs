@@ -1,9 +1,12 @@
+/* eslint-env mocha */
 const { expect } = require('chai');
 const { getValueFromPath, getValueAndParamsFromPath } = require('../src/client');
 
 describe('getValueFromPath', () => {
   enum Route {
+    // eslint-disable-next-line no-unused-vars
     users,
+    // eslint-disable-next-line no-unused-vars
     homepage,
   };
 

@@ -8,6 +8,7 @@ module.exports = {
   ],
   "plugins": ["@typescript-eslint"],
   rules: {
+    "no-continue": ["off"],
     "react/destructuring-assignment": [0],
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }]
   },

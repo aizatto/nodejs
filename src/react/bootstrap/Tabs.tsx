@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import _ from 'lodash';
+import { flatten } from 'lodash';
 
 import { compareURL } from '../../fn';
 
@@ -11,9 +11,9 @@ declare const window;
 interface Props {
   className: string,
   // eslint-disable-next-line react/forbid-prop-types
-  children: [];
   defaultActiveKey: string;
   onSelect(eventKey:string): void;
+  children?: any;
 }
 
 interface State {
@@ -28,7 +28,7 @@ export default class Tabs extends React.Component<Props, State> {
     className: '',
   }
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     let activeKey = props.defaultActiveKey;
     if (activeKey === null &&
@@ -52,7 +52,7 @@ export default class Tabs extends React.Component<Props, State> {
 
     const currentUrl = window.location.toString();
 
-    const children = _.flatten(this.props.children).map((child) => {
+    const children = flatten(this.props.children).map((child) => {
       if (!child) {
         return null;
       }
