@@ -5,7 +5,7 @@ interface Props {
   eventKey: string,
   className?: string,
   title: string,
-  render(): void,
+  render?(): JSX.Element,
 }
 
 export default function Tab(props: Props) {

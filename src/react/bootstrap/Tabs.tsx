@@ -84,20 +84,24 @@ export default class Tabs extends React.Component<Props, State> {
             : null;
         }
 
-        href = `#${eventKey}`;
-        const fn = childProps.onClick;
-        childProps.onClick = (e) => {
-          this.setState({
-            activeKey: eventKey,
-          }, () => {
-            if (fn) {
-              fn(e);
-            }
-            if (onSelect) {
-              onSelect(eventKey);
-            }
-          });
-        };
+        if (childRender) {
+          href = `#${eventKey}`;
+          const fn = childProps.onClick;
+          childProps.onClick = (e) => {
+            this.setState({
+              activeKey: eventKey,
+            }, () => {
+              if (fn) {
+                fn(e);
+              }
+              if (onSelect) {
+                onSelect(eventKey);
+              }
+            });
+          };
+        } else {
+          aClassName += 'disabled';
+        }
       }
 
       return (
