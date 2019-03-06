@@ -1,1 +1,1 @@
-{"version":3,"file":"DropdownItem.d.ts","sourceRoot":"","sources":["../../../src/react/bootstrap/DropdownItem.tsx"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,UAAU,YAAY,CAAC,KAAK,KAAA,OAEzC;AAFD,MAAM,CAAC,OAAO,WAAU,YAAY"}
+{"version":3,"file":"DropdownItem.d.ts","sourceRoot":"","sources":["../../../src/react/bootstrap/DropdownItem.tsx"],"names":[],"mappings":";AAGA,UAAU,KAAK;IACb,SAAS,CAAC,EAAE,MAAM,CAAC;IACnB,KAAK,EAAE,MAAM,CAAC;CACf;AAED,MAAM,CAAC,OAAO,UAAU,YAAY,CAAC,KAAK,EAAE,KAAK,eAEhD"}

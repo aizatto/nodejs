@@ -6,10 +6,5 @@ interface Props {
     render?(): JSX.Element;
 }
 export default function Tab(props: Props): JSX.Element;
-export default namespace Tab {
-    var defaultProps: {
-        className: string;
-    };
-}
 export {};
 //# sourceMappingURL=Tab.d.ts.map

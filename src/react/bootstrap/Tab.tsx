@@ -11,7 +11,3 @@ interface Props {
 export default function Tab(props: Props) {
   return <>{props.title}</>;
 }
-
-Tab.defaultProps = {
-  className: '',
-};
