@@ -5,7 +5,7 @@ interface Routes {
 }
 
 interface RouteToValueConfig {
-  [path: string]: string;
+  [path: string]: any;
 }
 
 /* Should this be a class or a function?
