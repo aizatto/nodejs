@@ -20,6 +20,7 @@ export declare function setMath<T>(a: Set<T>, b: Set<T>): {
     remove: T[];
     add: T[];
 };
+export declare function setEqual<T>(a: Set<T>, b: Set<T>): boolean;
 export declare function conjuction(sentences: Array<string>): string;
 export declare function dayOfYear(date: Date): Number;
 export declare function currentDaysOfYear(date: Date): Array<Number>;
