@@ -47,11 +47,10 @@
     "watch": "^1.0.2"
   },
   "optionalDependencies": {
-    "graphql": "^0.13.2",
-    "graphql-relay": "^0.5.5",
-    "lodash": "^4.17.4",
-    "prop-types": "^15.5.10",
-    "react": "16.4.2"
+    "graphql": "*",
+    "graphql-relay": "*",
+    "lodash": "*",
+    "react": "*"
   },
   "dependencies": {
     "classnames": "^2.2.5",
