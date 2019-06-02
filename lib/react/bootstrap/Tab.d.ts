@@ -1,8 +1,8 @@
-/// <reference types="react" />
+import * as React from 'react';
 interface Props {
     eventKey: string;
     className?: string;
-    title: string;
+    title: React.ReactNode;
     href?: string;
     render?(): JSX.Element;
 }
