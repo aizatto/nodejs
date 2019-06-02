@@ -8,12 +8,10 @@ import { compareURL } from '../../fn';
 
 declare const window;
 
-interface Props {
-  className: string,
+interface Props extends Omit<React.HTMLProps<HTMLElement>, "onSelect"> {
   // eslint-disable-next-line react/forbid-prop-types
   defaultActiveKey: string;
   onSelect(eventKey:string): void;
-  children?: any;
 }
 
 interface State {
@@ -31,9 +29,11 @@ export default class Tabs extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     let activeKey = props.defaultActiveKey;
-    if (activeKey === null &&
-        props.children.length > 0) {
-      activeKey = props.children[0].props.eventKey;
+    if (activeKey === null) {
+      const children = props.children;
+      if (Array.isArray(children) && children.length > 0) {
+        activeKey = (children[0] as any).props.eventKey;
+      }
     }
 
     this.state = {

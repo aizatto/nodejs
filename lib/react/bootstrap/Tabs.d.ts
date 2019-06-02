@@ -1,9 +1,7 @@
 import * as React from 'react';
-interface Props {
-    className: string;
+interface Props extends Omit<React.HTMLProps<HTMLElement>, "onSelect"> {
     defaultActiveKey: string;
     onSelect(eventKey: string): void;
-    children?: any;
 }
 interface State {
     activeKey: string;
