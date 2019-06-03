@@ -5,7 +5,7 @@ interface Props extends Omit<React.HTMLProps<HTMLElement>, "title"> {
   eventKey: string,
   title: React.ReactNode,
   href?: string,
-  render?(): JSX.Element,
+  render?: () => JSX.Element | null,
 }
 
 export default function Tab(props: Props) {
