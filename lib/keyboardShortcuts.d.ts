@@ -50,5 +50,5 @@ export declare enum OS {
     OTHERS = 1
 }
 export declare function assertModifiers(e: React.KeyboardEvent<{}>, expectedModifiers: Set<Modifiers>): boolean;
-export declare function useSaveKeyboardShortcut(saveFn: () => void): void;
+export declare function useKeyboardSaveShortcut(saveFn: () => void): void;
 //# sourceMappingURL=keyboardShortcuts.d.ts.map

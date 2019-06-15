@@ -89,7 +89,7 @@ export function assertModifiers(
   return setEqual(modifiers, expectedModifiers);
 }
 
-export function useSaveKeyboardShortcut(saveFn: () => void): void {
+export function useKeyboardSaveShortcut(saveFn: () => void): void {
   useEffect(() => {
     const listener = (e: React.KeyboardEvent<{}>): void => {
       if (e.keyCode !== KeyCode.S) {
