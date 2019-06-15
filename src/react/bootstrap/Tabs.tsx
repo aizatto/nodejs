@@ -8,7 +8,7 @@ import { compareURL } from '../../fn';
 
 declare const window;
 
-interface Props extends Omit<React.HTMLProps<HTMLElement>, "onSelect"> {
+interface Props extends Omit<React.HTMLProps<HTMLUListElement>, "onSelect"> {
   // eslint-disable-next-line react/forbid-prop-types
   defaultActiveKey: string;
   onSelect(eventKey:string): void;

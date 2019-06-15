@@ -1,5 +1,5 @@
 import * as React from 'react';
-interface Props extends Omit<React.HTMLProps<HTMLElement>, "onSelect"> {
+interface Props extends Omit<React.HTMLProps<HTMLUListElement>, "onSelect"> {
     defaultActiveKey: string;
     onSelect(eventKey: string): void;
 }
