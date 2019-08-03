@@ -32,7 +32,7 @@ const argsToSortAndOrder = (args: Args) => {
   return { column, direction };
 };
 
-function connectionArgsToLimitAndOffset(args) {
+export function connectionArgsToLimitAndOffset(args) {
   // HANDLE LAST
   const {
     after,
@@ -92,7 +92,7 @@ function fieldsFromSelectionSet(info, selectionSet) {
   return fields;
 }
 
-function fieldsFromInfo(info: GraphQLResolveInfo) {
+export function fieldsFromInfo(info: GraphQLResolveInfo) {
   if (!info ||
       !info.fieldNodes ||
       !Array.isArray(info.fieldNodes) ||
@@ -116,7 +116,7 @@ function fieldsFromInfo(info: GraphQLResolveInfo) {
   return fields;
 }
 
-function addArgsToQuery(
+export function addArgsToQuery(
   args: Args,
   query: WhereQuery,
 ) {
@@ -135,7 +135,7 @@ function addArgsToQuery(
   return query;
 }
 
-async function connectionFromKnex(
+export async function connectionFromKnex(
   args: Args,
   query: WhereQuery,
   countQuery: Promise<any>,
@@ -178,10 +178,3 @@ async function connectionFromKnex(
     totalCount: count,
   };
 }
-
-module.exports = {
-  addArgsToQuery,
-  connectionArgsToLimitAndOffset,
-  connectionFromKnex,
-  fieldsFromInfo,
-};
