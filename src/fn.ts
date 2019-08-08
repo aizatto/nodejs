@@ -177,3 +177,47 @@ export function compareURL(stringA: string, stringB: string): Boolean {
 
   return url.format(urlA) === url.format(urlB);
 }
+
+export class Counter<T> {
+  map: Map<T, number>;
+  constructor() {
+    this.map = new Map();
+  }
+
+  increment(key: T) {
+    let counter = this.map.get(key);
+    if (!counter) {
+      counter = 0;
+    }
+    this.map.set(key, counter + 1);
+  }
+
+  keys() {
+    return Array.from(this.map.keys());
+  }
+}
+
+export class MatrixCounter<T, T2> {
+  map: Map<T, Counter<T2>>;
+  columns: Set<T2>;
+
+  constructor() {
+    this.map = new Map();
+    this.columns = new Set();
+  }
+
+  increment(key: T, key2: T2) {
+    let counter = this.map.get(key);
+    if (!counter) {
+      counter = new Counter();
+      this.map.set(key, counter);
+    }
+
+    counter.increment(key2);
+    this.columns.add(key2);
+  }
+
+  keys() {
+    return Array.from(this.map.keys());
+  }
+}

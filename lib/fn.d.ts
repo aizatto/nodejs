@@ -31,4 +31,17 @@ export declare function currentDaysOfYear(date: Date): Array<Number>;
  * TODO: replace this logic, it is really basic
  */
 export declare function compareURL(stringA: string, stringB: string): Boolean;
+export declare class Counter<T> {
+    map: Map<T, number>;
+    constructor();
+    increment(key: T): void;
+    keys(): T[];
+}
+export declare class MatrixCounter<T, T2> {
+    map: Map<T, Counter<T2>>;
+    columns: Set<T2>;
+    constructor();
+    increment(key: T, key2: T2): void;
+    keys(): T[];
+}
 //# sourceMappingURL=fn.d.ts.map
