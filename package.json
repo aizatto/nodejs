@@ -47,8 +47,10 @@
     "watch": "^1.0.2"
   },
   "optionalDependencies": {
+    "fs-extra": "*",
     "graphql": "*",
     "graphql-relay": "*",
+    "node-fetch": "*",
     "lodash": "*",
     "react": "*"
   },
