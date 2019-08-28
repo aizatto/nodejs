@@ -1,1 +1,1 @@
-{"version":3,"file":"Tab.js","sourceRoot":"","sources":["../../../src/react/bootstrap/Tab.tsx"],"names":[],"mappings":";;AAAA,6DAA6D;AAC7D,6BAA+B;AAS/B,SAAwB,GAAG,CAAC,KAAY;IACtC,OAAO,0CAAG,KAAK,CAAC,KAAK,CAAI,CAAC;AAC5B,CAAC;AAFD,sBAEC"}
+{"version":3,"file":"Tab.js","sourceRoot":"","sources":["../../../src/react/bootstrap/Tab.tsx"],"names":[],"mappings":";;;;;;;;;AAAA,6DAA6D;AAC7D,2CAA+B;AAS/B,SAAwB,GAAG,CAAC,KAAY;IACtC,OAAO,0CAAG,KAAK,CAAC,KAAK,CAAI,CAAC;AAC5B,CAAC;AAFD,sBAEC"}
